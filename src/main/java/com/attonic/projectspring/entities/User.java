@@ -6,11 +6,14 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "tb_user")
+/*Serializable é quando você quer que o objeto seja transformado em cadeia de bites, para que o objeto
+trafégue na rede.*/
 public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String name;
     private String email;
     private String phone;

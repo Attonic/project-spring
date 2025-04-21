@@ -13,6 +13,7 @@ import java.util.Arrays;
 @Profile("test")
 public class TestConfig implements CommandLineRunner {
 
+    //Resolve as dependências
     @Autowired
     private UserRepository userRepository;
 
