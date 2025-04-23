@@ -1,6 +1,7 @@
 package com.attonic.projectspring.entities;
 
 import com.attonic.projectspring.pk.OrderItemPK;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
@@ -13,13 +14,16 @@ import java.io.Serializable;
 public class OrderItens implements Serializable {
 
     @EmbeddedId
-    private OrderItemPK id;
+    private OrderItemPK id = new OrderItemPK();
+
     private Integer quantity;
     private  Double price;
+
 
     public OrderItens(){
 
     }
+
 
     public OrderItens(Order order, Product product, Integer quantity, Double price) {
         super();
@@ -29,6 +33,7 @@ public class OrderItens implements Serializable {
         this.price = price;
     }
 
+    @JsonIgnore
     public Order getOrder(){
         return id.getOrder();
     }
