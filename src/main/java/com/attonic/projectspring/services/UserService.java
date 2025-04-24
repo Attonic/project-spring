@@ -2,6 +2,7 @@ package com.attonic.projectspring.services;
 
 import com.attonic.projectspring.entities.User;
 import com.attonic.projectspring.repositories.UserRepository;
+import com.attonic.projectspring.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -21,7 +22,7 @@ public class UserService {
 
     public User findByID(Long id){
         Optional<User> obj = repository.findById(id);
-        return obj.get();
+        return obj.orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
 
