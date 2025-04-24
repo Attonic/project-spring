@@ -2,8 +2,11 @@ package com.attonic.projectspring.services;
 
 import com.attonic.projectspring.entities.User;
 import com.attonic.projectspring.repositories.UserRepository;
+import com.attonic.projectspring.services.exceptions.DataBaseException;
 import com.attonic.projectspring.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -31,7 +34,13 @@ public class UserService {
     }
 
     public void delete(Long id){
-        repository.deleteById(id);
+        try {
+            repository.deleteById(id);
+        }catch (EmptyResultDataAccessException e){
+            throw new ResourceNotFoundException(id);
+        } catch (DataIntegrityViolationException e){
+            throw new DataBaseException(e.getMessage());
+        }
     }
 
     public User update(Long id, User obj){
